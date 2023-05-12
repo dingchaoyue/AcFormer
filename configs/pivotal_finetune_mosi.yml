@@ -1,0 +1,43 @@
+bert_config: '/home/mnt/cv/acformer/configs/config_bert.json'
+
+# modality: text # text audio video
+modality: video # text audio video
+image_size: 224
+image_res: 224
+num_frames: 4
+
+embed_dim: 768
+mlp_ratio: 4.0
+dropout: 0.1
+neck_size: 12
+positional_embedding: learnable #  {'sine', 'learnable', 'none'}
+freq_bins: 768
+time_frames: 1024
+
+num_layers: 3
+start_fusion_layer: 2
+fusion_head: 1
+
+batch_size: 1
+temp: 0.07
+mlm_probability: 0.15
+queue_size: 65536
+momentum: 0.995
+alpha: 0.4
+warm_up: True
+
+optimizer: {opt: adamW, lr: 0.00001, weight_decay: 0.02}
+schedular: {sched: cosine, lr: 0.00001, epochs: 30, min_lr: 0.00001, decay_rate: 1, warmup_lr: 0.00001, warmup_epochs: 0, cooldown_epochs: 0}
+
+# dataset configs
+video_dir: /home/mnt/cv/acformer/data/mosi/segmented_video/
+audio_dir: /home/mnt/cv/acformer/data/mosi/segmented_audio/
+transcript_dir: /home/mnt/cv/acformer/data/mosi/segmented_text/
+train_file: /home/mnt/cv/acformer/data/mosi/train.txt
+val_file: /home/mnt/cv/acformer/data/mosi/dev.txt
+test_file: /home/mnt/cv/acformer/data/mosi/test.txt
+
+# model
+num_classes: 1
+loss_type: mse
+distill: True

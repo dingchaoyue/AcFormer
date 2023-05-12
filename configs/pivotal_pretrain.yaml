@@ -1,0 +1,42 @@
+bert_config: '/home/mnt/cv/acformer/configs/config_bert.json'
+text_width: 768
+vision_width: 768 
+audio_width: 128
+
+image_size: 224
+image_res: 224
+num_frames: 8
+
+embed_dim: 128
+neck_size: 12
+num_layers: 3
+pre_fusion_layer: 2
+
+mlp_ratio: 4.0
+dropout: 0.1
+positional_embedding: learnable #  {'sine', 'learnable', 'none'}
+freq_bins: 128
+time_frames: 1024
+
+batch_size: 4
+temp: 0.07
+mlm_probability: 0.15
+queue_size: 65536
+momentum: 0.995
+alpha: 0.4
+warm_up: True
+
+optimizer: {opt: adamW, lr: 0.0001, weight_decay: 0.02}
+schedular: {sched: cosine, lr: 0.0001, epochs: 30, min_lr: 0.00001, decay_rate: 1, warmup_lr: 0.00005, warmup_epochs: 10, cooldown_epochs: 0}
+
+# Dataset Configs
+video_dir: /home/mnt/cv/acformer/data/meld/segmented_video/
+audio_dir: /home/mnt/cv/acformer/data/meld/segmented_audio/
+transcript_dir: /home/mnt/cv/acformer/data/meld/segmented_text/
+train_file: /home/mnt/cv/acformer/data/meld/text.csv
+feat_save_dir: /home/mnt/cv/acformer/output/
+# Model
+num_classes: 1
+loss_type: mse
+distill: True
+dropout: 0.5

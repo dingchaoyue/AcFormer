@@ -1,0 +1,45 @@
+bert_config: '/home/mnt/cv/acformer/configs/config_bert.json'
+
+image_size: 224
+image_res: 224
+num_frames: 4
+
+vision_width: 35 # visual feature dimension 35 for MOSEI
+audio_width: 74 # acoustic feature dimension 74 for MOSI/MOSEI
+text_width: 768
+embed_dim: 768
+
+mlp_ratio: 4.0
+dropout: 0.1
+neck_size: 12
+positional_embedding: learnable #  {'sine', 'learnable', 'none'}
+freq_bins: 128
+time_frames: 1024
+
+num_layers: 5
+start_fusion_layer: 3
+fusion_head: 6
+fusion_strategy: separate # residual
+# fusion_strategy: separate # residual
+
+batch_size: 8
+temp: 0.07
+mlm_probability: 0.15
+queue_size: 65536
+momentum: 0.995
+alpha: 0.4
+warm_up: False
+
+optimizer: {opt: adamW, lr: 0.0001, weight_decay: 0.02}
+schedular: {sched: cosine, lr: 0.0001, epochs: 30, min_lr: 0.0001, decay_rate: 1, warmup_lr: 0.0001, warmup_epochs: 5, cooldown_epochs: 0}
+
+# dataset configs
+data_dir: /home/mnt/cv/acformer/data/mosei/
+dataset_dir: /home/mnt/cv/acformer/data/mosei/
+sdk_dir: /home/mnt/cv/acformer/mmsdk/
+word_emb_path: /home/mnt/cv/acformer/data/glove.840B.300d.txt
+
+# model
+num_classes: 1
+loss_type: mse
+distill: True
